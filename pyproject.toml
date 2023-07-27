@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "leasing"
+version = "0.1.0"
+description = ""
+authors = ["Seba Zapata <s.zapata05@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+flask-restx = "^1.1.0"
+flask-sqlalchemy = "^3.0.5"
+pymysql = "^1.1.0"
+pre-commit = "^3.3.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
