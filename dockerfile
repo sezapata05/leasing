@@ -1,7 +1,5 @@
 FROM python:3.11-buster
 
-# VOLUME [ "/tmp" ]
-
 RUN pip install poetry
 
 COPY . .

@@ -1,0 +1,58 @@
+version: '3.1'
+
+services:
+# python app back service
+  api-flask:
+    build:
+      context: .
+    container_name: api-leaseing-py
+    environment:
+      # set database, memcached etc credentials
+      DB_HOST: mysql
+      DB_NAME: flask
+      DB_USER: flask
+      DB_PASSWORD: qwerty
+    depends_on:
+      - mysql
+    ports:
+      - 8080:8080
+
+  mysql:
+    container_name: leasing_mysql
+    image: mysql:5.7
+    volumes:
+        # pass volume named mysql-data to mysql container
+      - mysql-data:/var/lib/mysql
+    restart: unless-stopped
+    labels:
+      project: "flask"
+    # ports:
+    #   - "3306:3306"
+    environment:
+      # credentials
+      MYSQL_ROOT_PASSWORD: qwerty
+      MYSQL_DATABASE: flask
+      MYSQL_USER: flask
+      MYSQL_PASSWORD: qwerty
+
+  phpmyadmin:
+    depends_on:
+      - mysql
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: leasing_phpmyadmin
+    restart: unless-stopped
+    labels:
+      project: "flask"
+    ports:
+      - "5010:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: flask
+      PMA_PASSWORD: qwerty
+      MYSQL_ROOT_PASSWORD: qwerty
+
+# volumes definition here
+volumes:
+  # just a persistance data
+  mysql-data:
+    driver: local
